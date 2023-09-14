@@ -1,0 +1,83 @@
+USE gamarramarket;
+-- Inserción en la tabla "cliente"
+INSERT INTO cliente (tipo_documento, numero_documento, nombres, apellidos, emaill, celular, fecha_nacimiento, activo)
+VALUES
+('DNI', '12345678', 'Juan', 'Pérez', 'juan.perez@example.com', '987654321', '2000-01-15', '1'),
+('CNE', '87654321', 'María', 'González', 'maria.gonzalez@example.com', '654321987', '1995-05-20', '1'),
+('DNI', '98765432', 'Carlos', 'López', 'carlos.lopez@example.com', '123456789', '1988-11-10', '1'),
+('PASAPORTE', '56789012', 'Laura', 'Martínez', 'laura.martinez@example.com', '789012345', '1990-07-25', '1'),
+('RUC', '34567890', 'Luis', 'Rodríguez', 'luis.rodriguez@example.com', '567890123', '1985-04-02', '1'),
+('DNI', '23456789', 'Ana', 'Sánchez', 'ana.sanchez@example.com', '432109876', '1993-03-18', '1'),
+('CARNET EXTRANJERÍA', '45678901', 'Pedro', 'Díaz', 'pedro.diaz@example.com', '210987654', '1987-09-08', '1'),
+('DNI', '65432109', 'Sofía', 'Ramírez', 'sofia.ramirez@example.com', '109876543', '1992-12-05', '1'),
+('CNE', '76543210', 'David', 'Hernández', 'david.hernandez@example.com', '876543210', '1989-06-30', '1'),
+('DNI', '87654321', 'Isabel', 'Gómez', 'isabel.gomez@example.com', '765432109', '1996-08-14', '1'),
+('PASAPORTE', '98765432', 'José', 'Fernández', 'jose.fernandez@example.com', '654321098', '1983-02-22', '1'),
+('RUC', '10987654', 'Marta', 'Luna', 'marta.luna@example.com', '543210987', '1986-07-11', '1'),
+('DNI', '21098765', 'Roberto', 'Torres', 'roberto.torres@example.com', '432109876', '1991-04-28', '1'),
+('CARNET EXTRANJERÍA', '43210987', 'Elena', 'García', 'elena.garcia@example.com', '321098765', '1984-10-17', '1'),
+('DNI', '54321098', 'Fernando', 'Pérez', 'fernando.perez@example.com', '210987654', '1994-09-03', '1'),
+('CNE', '65432109', 'Carmen', 'Herrera', 'carmen.herrera@example.com', '109876543', '1980-06-28', '1'),
+('DNI', '76543210', 'Javier', 'Soto', 'javier.soto@example.com', '987654321', '1997-11-12', '1'),
+('PASAPORTE', '87654321', 'Lorena', 'Jiménez', 'lorena.jimenez@example.com', '876543210', '1982-03-07', '1'),
+('RUC', '98765432', 'Antonio', 'Ortega', 'antonio.ortega@example.com', '765432109', '1981-12-19', '1'),
+('DNI', '10987654', 'Patricia', 'Gutiérrez', 'patricia.gutierrez@example.com', '654321098', '1998-05-09', '1');
+
+-- Inserción en la tabla "Vendedor"
+INSERT INTO Vendedor (ID_Vendedor, Nombre, Direccion, Telefono, CorreoElectronico, FechaContratacon)
+VALUES
+('1', 'Vendedor1', 'Dirección1', '123456789', 'vendedor1@example.com', '2023-01-01'),
+('2', 'Vendedor2', 'Dirección2', '987654321', 'vendedor2@example.com', '2023-01-02');
+
+-- Inserción en la tabla "Prenda"
+INSERT INTO Prenda (ID_Prenda, Descripcion, Precio, Stock, OtrosCampos)
+VALUES
+('1', 'Prenda1', '50.00', '100', 'Otros1'),
+('2', 'Prenda2', '75.00', '75', 'Otros2');
+
+-- Inserción en la tabla "Venta"
+INSERT INTO Venta (ID_Venta, ID_Cliente, ID_vendedor, FechaVenta, MontoTotal, FormaPago, EstadoVenta, OtrosDetalles)
+VALUES
+('1', '1', '1', '2023-09-14', '150.00', 'Efectivo', 'Pendiente', 'Detalles1'),
+('2', '2', '2', '2023-09-15', '200.00', 'Tarjeta', 'Completada', 'Detalles2');
+
+-- Inserción en la tabla "VentaDetallada"
+INSERT INTO VentaDetallada (ID_ventaDetallada, ID_venta, Cantidad, ID_Prenda)
+VALUES
+('1', '1', '2', '1'),
+('2', '1', '3', '2'),
+('3', '2', '1', '1'),
+('4', '2', '2', '2');
+
+-- 9. Actualizar el número de celular de Marjo Mayo
+UPDATE cliente SET celular = '922881101' WHERE nombres = 'Marjo' AND apellidos = 'Mayo';
+
+-- 10. Actualizar el número de celular del cliente con DNI 53298147
+UPDATE cliente SET celular = '977226604' WHERE numero_documento = '53298147';
+
+-- 11. Eliminar lógicamente los clientes con los DNI especificados
+UPDATE cliente SET activo = '0' WHERE numero_documento IN ('11453265', '74142585', '49985471');
+
+-- 12. Actualizar el número de celular de los clientes con los DNI especificados a blanco
+UPDATE cliente SET celular = '' WHERE numero_documento IN ('87952514', '55859321', '74142585');
+
+-- 13. Reactivar al cliente Oscar César Quiroz Zavala y actualizar su correo
+UPDATE cliente SET activo = '1', emaill = 'oscar.guiroz@yahoo.es' WHERE nombres = 'Oscar César' AND apellidos = 'Quiroz Zavala';
+
+-- 15. Actualizar el precio del polo sport de marca Australia
+UPDATE prenda SET Precio = 45.00 WHERE Descripcion = 'Polo Sport Australia';
+
+-- 16. Cambiar el nombre de la prenda Corbata por Corbata Michi elegante
+UPDATE prenda SET Descripcion = 'Corbata Michi elegante' WHERE Descripcion = 'Corbata';
+
+-- 17. Eliminar físicamente las prendas: Camisa manga corta y Camisa Sport
+DELETE FROM prenda WHERE nombre IN ('Camisa manga corta', 'Camisa Sport');
+
+-- 18. Eliminar físicamente al vendedor Marcela Napaico Cama
+DELETE FROM vendedor WHERE nombres = 'Marcela' AND apellidos = 'Napaico Cama';
+
+-- 19. Eliminar físicamente los clientes con los números de documentos especificados
+DELETE FROM cliente WHERE numero_documento IN ('47142536', '77889955');
+
+-- 20. Eliminar todos los clientes nacidos en el año 1980
+DELETE FROM cliente WHERE YEAR(fecha_nacimiento) = 1980;
